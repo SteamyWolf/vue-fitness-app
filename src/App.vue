@@ -10,12 +10,12 @@
           <time-distance @save:workout="handleSaveWorkout" :timeWorkouts="timeWorkouts" @timeWorkout:submit="handleTimeWorkoutSubmit" />
         </div>
         <div class="sets-reps-comp" v-if="setsReps">
-          <sets-reps :repsWorkouts="repsWorkouts" />
+          <sets-reps :repsWorkouts="repsWorkouts" @saveSets:info="handleSaveRepsWorkout" />
         </div>
       </div>
     </div>
     <div v-if="past">
-      <past-exercises :savedWorkouts="savedWorkouts" />
+      <past-exercises :savedWorkouts="savedWorkouts" :savedRepsWorkouts="repsWorkouts" />
     </div>
   </div>
 </template>
@@ -42,9 +42,10 @@ export default {
       past: false,
       timeDistance: false,
       setsReps: false,
-      savedWorkouts: [],
       timeWorkouts: [],
-      repsWorkouts: []
+      repsWorkouts: [],
+      savedWorkouts: [],
+      savedRepsWorkouts: []
     };
   },
   methods: {
@@ -71,6 +72,9 @@ export default {
     },
     handleTimeWorkoutSubmit(workouts) {
       this.timeWorkouts = workouts;
+    },
+    handleSaveRepsWorkout(workout) {
+      this.savedRepsWorkouts.push(workout);
     }
   },
 };
